@@ -169,6 +169,14 @@ func TestStringer(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, logrus.Fields{"Stringer": "[REDACTED] is fmt.Stringer"}, logEntry.Data)
+
+	var s *stringerValue
+	nilStringerEntry := &logrus.Entry{
+		Data: logrus.Fields{"Stringer": s},
+	}
+	err = h.Fire(nilStringerEntry)
+
+	assert.Nil(t, err)
 }
 
 type TypedString string
